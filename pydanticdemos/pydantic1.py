@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr, StringConstraints, field_validator
+from pydantic import (BaseModel, EmailStr, StringConstraints,
+                      field_validator, field_serializer)
 from pydantic import validator
 
 
@@ -9,10 +10,14 @@ class Person(BaseModel):
 
     @field_validator("password")
     def validate_password(cls, value):
-        print(value)
+
         if len(value) < 5:
             raise ValueError("Password must be greater 5 ")
-        return len(value)
+        return value
+
+
 
 
 p1 = Person(name="Tom", email="tom@gmail.com", password="rr777777")
+print(p1.model_dump(mode="json"))
+print(Person.model_validate(p1))
