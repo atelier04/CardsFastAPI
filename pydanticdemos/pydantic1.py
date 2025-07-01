@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, StringConstraints
+from pydantic import BaseModel, EmailStr, StringConstraints, field_validator
 from pydantic import validator
 
 
@@ -7,7 +7,7 @@ class Person(BaseModel):
     email: EmailStr
     password: str
 
-    @validator("password")
+    @field_validator("password")
     def validate_password(cls, value):
         print(value)
         if len(value) < 5:
@@ -15,4 +15,4 @@ class Person(BaseModel):
         return len(value)
 
 
-p1 = Person(name="Tom", email="tom@gmail.com", password="rr")
+p1 = Person(name="Tom", email="tom@gmail.com", password="rr777777")
